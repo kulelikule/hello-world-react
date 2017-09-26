@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import uuid from 'uuid'
 import List from './components/List'
 import CreateBar from './components/CreateBar'
+import AddForm from './components/AddForm'
 
 class App extends Component {
     constructor(props) {
@@ -15,18 +16,31 @@ class App extends Component {
                 id: 2,
                 title: '测试2',
                 time: '2017-01-02'
-            }]
+            }],
+            isShowAdd: false
         }
 
         this.createItem = this.createItem.bind(this)
+        this.saveItem = this.saveItem.bind(this)
+        this.cancel = this.cancel.bind(this)
     }
     createItem() {
         this.setState({
+            isShowAdd: true
+        })
+    }
+    saveItem(item) {
+        this.setState({
             items: [...this.state.items, {
                 id: uuid.v4(),
-                title: `测试${Math.floor(Math.random() * 100)}`,
-                time: Math.floor(Math.random() * 100)
+                ...item
             }]
+        })
+        this.cancel()
+    }
+    cancel() {
+        this.setState({
+            isShowAdd: false
         })
     }
     render() {
@@ -35,6 +49,7 @@ class App extends Component {
             <div>
                 <CreateBar onClick={this.createItem}></CreateBar>
                 <List items={items}></List>
+                <AddForm add={ this.saveItem } cancel={ this.cancel } show={ this.state.isShowAdd }></AddForm>
             </div>
         );
     }
