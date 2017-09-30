@@ -6,8 +6,8 @@ import indexStyles from '../../index.css'
 function ListItem({ item }) {
     return (
         <div className="list-item" styleName="item-style">
-            <span className="fr">{item.time}</span>
-            {item.title}
+            <span className="fr">{item.get('time')}</span>
+            {item.get('title')}
         </div>
     )
 }

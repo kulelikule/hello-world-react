@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ListItem from '../ListItem'
+import { fromJS } from 'immutable'
 
 function List({ items }) {
-    items = items.map(item => (<ListItem item={item} key={item.id}></ListItem>))
+    items = fromJS(items)
+    items = items.map(item => (<ListItem item={item} key={item.get('id')}></ListItem>))
 
     return (
         <div>
